@@ -30,8 +30,10 @@ const addUserValidators = [
     .trim()
     .notEmpty()
     .withMessage("Mobile number is required.")
-    .isMobilePhone("any")
-    .withMessage("Invalid mobile number format."),
+    .isMobilePhone("any", { strictMode: true })
+    .withMessage(
+      "Enter a valid phone number with country code, e.g. +8801712345678.",
+    ),
   check("password")
     .isStrongPassword({
       minLength: 6,

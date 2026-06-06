@@ -1,3 +1,16 @@
+<!-- intl-tel-input: country-code dropdown for the mobile field -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/intl-tel-input@29.0.5/dist/css/intlTelInput.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@29.0.5/dist/js/intlTelInput.min.js"></script>
+<style>
+  /* Make the phone widget span the full width like the other inputs */
+  .iti {
+    width: 100%;
+  }
+</style>
+
 <div class="modal-wrapper" id="add-user-modal">
   <div class="modal">
     <a href="#" onclick="closeModal()" class="modal-close">+</a>
@@ -17,7 +30,7 @@
         <p class="error age-error"></p>
         <input type="text" placeholder="Enter email" name="email" />
         <p class="error email-error"></p>
-        <input type="text" placeholder="Enter mobile" name="mobile" />
+        <input type="tel" id="mobile" placeholder="Enter mobile" name="mobile" />
         <p class="error mobile-error"></p>
         <input type="password" placeholder="Enter password" name="password" />
         <p class="error password-error"></p>
@@ -34,6 +47,16 @@
 <script>
   const modal = document.querySelector("#add-user-modal");
   const form = document.querySelector("#add-user-form");
+
+  // Initialise the country-code dropdown on the mobile field
+  const phoneInputField = form.querySelector('input[name="mobile"]');
+  const iti = window.intlTelInput(phoneInputField, {
+    initialCountry: "bd",
+    loadUtils: () =>
+      import(
+        "https://cdn.jsdelivr.net/npm/intl-tel-input@29.0.5/dist/js/utils.js"
+      ),
+  });
 
   const sucessToast = Toastify({
     text: "User added successfully!",
@@ -88,6 +111,15 @@
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     clearErrors();
+
+    // Replace the typed number with the full international format (E.164),
+    // e.g. +8801712345678, so the backend always receives the country code.
+    const fullNumber =
+      iti.getNumber() ||
+      "+" +
+        iti.getSelectedCountryData().dialCode +
+        phoneInputField.value.replace(/\D/g, "");
+    phoneInputField.value = fullNumber;
 
     const formData = new FormData(form);
 

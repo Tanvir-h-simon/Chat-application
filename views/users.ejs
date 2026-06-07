@@ -14,6 +14,7 @@
             <tr>
               <th>Name</th>
               <th>Email</th>
+              <th>Role</th>
               <th>Manage</th>
             </tr>
           </thead>
@@ -29,6 +30,7 @@
                   <span><%= user.name %></span>
                 </td>
                 <td><%= user.email %></td>
+                <td class="role"><%= user.role %></td>
                 <td class="manage">
                   <img src="/images/trash.png" alt="Delete" onclick="deleteUser('<%= user._id %>')" />
                 </td>

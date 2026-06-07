@@ -18,7 +18,7 @@ async function getUsers(req, res, next) {
 
 async function addUsers(req, res, next) {
   try {
-    const { name, age, email, mobile, password } = req.body;
+    const { name, age, email, mobile, password, role } = req.body;
     const avatar = req.file ? req.file.filename : null;
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -30,6 +30,8 @@ async function addUsers(req, res, next) {
       mobile,
       password: hashedPassword,
       avatar,
+      // Only "admin" is accepted as an elevated role; anything else stays "user".
+      role: role === "admin" ? "admin" : "user",
     });
 
     await newUser.save();
@@ -51,6 +53,15 @@ async function addUsers(req, res, next) {
 async function deleteUser(req, res, next) {
   try {
     const userId = req.params.id;
+
+    // Stop an admin from deleting their own account (prevents self lock-out).
+    if (req.user && req.user._id === userId) {
+      return res.status(400).json({
+        success: false,
+        message: "You cannot delete your own account.",
+      });
+    }
+
     const user = await People.findByIdAndDelete(userId);
 
     if (!user) {

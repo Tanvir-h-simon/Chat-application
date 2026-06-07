@@ -4,13 +4,14 @@ dotenv.config();
 
 // External dependencies
 const express = require("express");
-const mongoose = require("mongoose");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+
 // Internal dependencies
-const loginRouter = require("./router/loginRouter");
-const userRouter = require("./router/usersRouter");
-const inboxRouter = require("./router/inboxRouter");
+const connectDB = require("./config/db");
+const loginRouter = require("./routers/loginRouter");
+const userRouter = require("./routers/usersRouter");
+const inboxRouter = require("./routers/inboxRouter");
 const {
   notFoundErrorHandler,
   defaultErrorHandler,
@@ -20,14 +21,7 @@ const {
 const app = express();
 
 // Database connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
-  });
+connectDB();
 
 // Request parsing middleware
 app.use(express.json());

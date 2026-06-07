@@ -14,11 +14,14 @@
             value="<%= locals.data ? data.username : '' %>"
           />
           <% if (locals.errors && errors.username) { %>
-          <p class="error show"><%= errors.username.msg %></p>
+            <p class="error show"><%= errors.username.msg %></p>
           <% } %>
           <input type="password" name="password" placeholder="Enter password" />
           <% if (locals.errors && errors.password) { %>
-          <p class="error show"><%= errors.password.msg %></p>
+            <p class="error show"><%= errors.password.msg %></p>
+          <% } %>
+          <% if (locals.errors && errors.general) { %>
+            <p class="error show"><%= errors.general.msg %></p>
           <% } %>
           <input type="submit" value="Login" />
         </form>

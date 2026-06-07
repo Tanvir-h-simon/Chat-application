@@ -1,11 +1,6 @@
-const express = require('express');
 const { check } = require('express-validator');
-const { getLogin, postLogin } = require('../controller/loginController');
-const decorateHtmlRes = require('../middlewares/common/decorateHtmlRes');
 
-const router = express.Router();
-
-const loginValidators = [
+const loginValidator = [
     check("username")
         .trim()
         .notEmpty()
@@ -25,7 +20,4 @@ const loginValidators = [
         .withMessage("Password must be at least 6 characters."),
 ];
 
-router.get('/', decorateHtmlRes('Login'), getLogin);
-router.post('/', decorateHtmlRes('Login'), loginValidators, postLogin);
-
-module.exports = router;
+module.exports = loginValidator;

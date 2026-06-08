@@ -55,19 +55,23 @@ front-end framework, which keeps the app small and fast.
 
 ### Login
 
-![Ping login screen](screenshots/login.png)
+![Ping login screen]<img width="1919" height="1116" alt="Screenshot 2026-06-09 021919" src="https://github.com/user-attachments/assets/f92688e4-fbb6-45ac-9191-3e5f9a2a8a6f" />
+
 
 ### Chat
 
-![Ping chat view with messages, image attachment, and online presence](screenshots/chat.png)
+![Ping chat view with messages, image attachment, and online presence]<img width="1919" height="1079" alt="Screenshot 2026-06-09 021822" src="https://github.com/user-attachments/assets/6679b266-1542-4b91-ab47-067ebd8abf45" />
+
 
 ### Admin user management
 
-![Admin manage-users page](screenshots/users.png)
+![Admin manage-users page]<img width="1919" height="1117" alt="Screenshot 2026-06-09 020428" src="https://github.com/user-attachments/assets/38174fc0-ea33-47e9-b202-e55091435cac" />
+
 
 ### Profile and password settings
 
-![Profile and change-password page](screenshots/profile.png)
+![Profile and change-password page]<img width="1919" height="1113" alt="Screenshot 2026-06-09 020439" src="https://github.com/user-attachments/assets/5df69341-0475-4ec2-9aba-19baf6c04e91" />
+
 
 ## Getting started
 
@@ -84,9 +88,14 @@ front-end framework, which keeps the app small and fast.
    npm install
    ```
 
-2. Copy `.env.example` to a new file named `.env` and fill in the values. Set
-   `MONGO_URI` to your database connection string, and use long random strings
-   (at least 32 characters) for `COOKIE_SECRET` and `JWT_SECRET`.
+2. Create a `.env` file in the root directory with the following variables:
+
+- `MONGO_URI` — MongoDB connection string
+- `COOKIE_SECRET` — Random string, at least 32 characters
+- `JWT_SECRET` — Random string, at least 32 characters
+- `ADMIN_NAME` — Name for the first admin account
+- `ADMIN_EMAIL` — Email for the first admin account
+- `ADMIN_PASSWORD` — Password for the first admin account
 
 3. Create the first admin account. This reads the `ADMIN_*` values from `.env`:
 
@@ -116,21 +125,7 @@ as two different users in two browser windows and message between them.
 
 ## Deployment
 
-The live version runs on Render, with the database on MongoDB Atlas. To deploy
-your own copy:
-
-1. Push the repository to GitHub and create a Render web service from it, with
-   build command `npm install` and start command `npm start`.
-2. In Atlas, allow network access and copy your connection string.
-3. In Render, set the environment variables from `.env.example`, including
-   `NODE_ENV=production`, which turns on secure cookies and the trust-proxy
-   setting and disables automatic index builds. You do not need to set `PORT`;
-   the host provides it.
-4. After the first deploy, run `npm run indexes:sync` once against the database.
-
-Uploaded avatars and attachments are stored on the server's local disk, which
-most hosts reset on redeploy. Attach a persistent disk, or use an external store
-like Cloudinary, if uploads need to survive restarts.
+The live version runs on Render, with the database on MongoDB Atlas.
 
 ## Author
 

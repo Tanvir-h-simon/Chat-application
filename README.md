@@ -69,57 +69,68 @@ front-end framework, which keeps the app small and fast.
 
 ![Profile and change-password page](screenshots/profile.png)
 
-## Getting started (local)
+## Getting started
 
 ### Prerequisites
 
 - Node.js 18 or newer
-- A MongoDB database (local, or a free MongoDB Atlas cluster)
+- A MongoDB database, either a local server or a free MongoDB Atlas cluster
 
 ### Setup
 
-1. Install dependencies:
+1. Install the dependencies:
 
    ```
    npm install
    ```
 
-2. Copy `.env.example` to `.env` and fill in the values. Set `MONGO_URI`, and use
-   long random strings (32+ characters) for `COOKIE_SECRET` and `JWT_SECRET`.
+2. Copy `.env.example` to a new file named `.env` and fill in the values. Set
+   `MONGO_URI` to your database connection string, and use long random strings
+   (at least 32 characters) for `COOKIE_SECRET` and `JWT_SECRET`.
 
-3. Create the first admin account (reads the `ADMIN_*` values from `.env`):
+3. Create the first admin account. This reads the `ADMIN_*` values from `.env`:
 
    ```
    npm run seed:admin
    ```
 
-4. Start the app in development (auto-reloads on changes):
+4. Start the development server, which auto-reloads on changes:
 
    ```
    npm run dev
    ```
 
-   Open http://localhost:3000 and log in with the admin credentials. The admin
-   can then create the rest of the users from the Users page.
+Open http://localhost:3000 and log in with your admin credentials. From the Users
+page, the admin creates the other accounts. To see the real-time features, log in
+as two different users in two browser windows and message between them.
 
 ## Scripts
 
-- `npm run dev` — start with auto-reload (development)
-- `npm start` — start the server (used in production)
-- `npm run prod` — start locally in production mode
-- `npm run seed:admin` — create the first admin account
-- `npm run indexes:sync` — build database indexes (run once after deploying)
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start with auto-reload (development) |
+| `npm start` | Start the server (used in production) |
+| `npm run prod` | Start locally in production mode |
+| `npm run seed:admin` | Create the first admin account |
+| `npm run indexes:sync` | Build the database indexes (run once after a deploy) |
 
 ## Deployment
 
-The app is deployed on Render with the database hosted on MongoDB Atlas.
+The live version runs on Render, with the database on MongoDB Atlas. To deploy
+your own copy:
 
-- Set `NODE_ENV=production` on the host. This enables secure cookies and the
-  trust-proxy setting, and disables automatic index builds.
-- Set every variable from `.env.example` in the host's environment settings.
-- After the first deploy, run `npm run indexes:sync` once against the database.
-- Uploaded avatars and attachments are stored on local disk, which most hosts
-  reset on redeploy. Attach a persistent disk if uploads need to survive restarts.
+1. Push the repository to GitHub and create a Render web service from it, with
+   build command `npm install` and start command `npm start`.
+2. In Atlas, allow network access and copy your connection string.
+3. In Render, set the environment variables from `.env.example`, including
+   `NODE_ENV=production`, which turns on secure cookies and the trust-proxy
+   setting and disables automatic index builds. You do not need to set `PORT`;
+   the host provides it.
+4. After the first deploy, run `npm run indexes:sync` once against the database.
+
+Uploaded avatars and attachments are stored on the server's local disk, which
+most hosts reset on redeploy. Attach a persistent disk, or use an external store
+like Cloudinary, if uploads need to survive restarts.
 
 ## Author
 

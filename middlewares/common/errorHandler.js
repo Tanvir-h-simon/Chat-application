@@ -7,14 +7,20 @@ function notFoundErrorHandler(req, res, next) {
 
 // Default Error Handler Middleware
 function defaultErrorHandler(err, req, res, next) {
-    const error = process.env.NODE_ENV === 'development' ? err : { message: err.message };
-    res.status(err.status || 500);
+  console.error(err); // full error (with stack) goes to the server log only
 
-    if (req.accepts('html')) {
-        res.render('error', { title: 'Error', error });
-    } else {
-        res.json(error);
-    }
+  const status = err.status || 500;
+  res.status(status);
+
+  // Show the real message for client errors (4xx); hide internals for 5xx.
+  const message =
+    status < 500 ? err.message : "Something went wrong on our end.";
+
+  if (req.accepts("html")) {
+    res.render("error", { title: status + " Error", status, message });
+  } else {
+    res.json({ status, message });
+  }
 }
 
 module.exports = {

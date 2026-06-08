@@ -1,0 +1,132 @@
+<%- include('./partials/header.ejs', { active: 'profile' }); %>
+
+<div class="profile-container">
+  <div class="profile-form-card">
+    <h3>My profile</h3>
+    <form id="profile-form" enctype="multipart/form-data">
+      <div class="avatar-preview">
+        <img
+          src="<%= profile.avatar ? '/avatars/' + profile.avatar : '/images/user1.png' %>"
+          alt="avatar"
+        />
+      </div>
+      <label>Name</label>
+      <input type="text" name="name" value="<%= profile.name %>" placeholder="Name" />
+      <p class="error name-error"></p>
+      <label>Age</label>
+      <input type="text" name="age" value="<%= profile.age %>" placeholder="Age" />
+      <p class="error age-error"></p>
+      <label>Email</label>
+      <input type="text" name="email" value="<%= profile.email %>" placeholder="Email" />
+      <p class="error email-error"></p>
+      <label>Mobile</label>
+      <input type="text" name="mobile" value="<%= profile.mobile %>"
+        placeholder="Mobile (e.g. +8801712345678)" />
+      <p class="error mobile-error"></p>
+      <label>Change photo</label>
+      <input type="file" name="avatar" accept="image/png,image/jpeg" />
+      <p class="error avatar-error"></p>
+      <p class="error general-error"></p>
+      <button type="submit">Save changes</button>
+    </form>
+  </div>
+
+  <div class="profile-form-card">
+    <h3>Change password</h3>
+    <form id="password-form">
+      <label>Current password</label>
+      <input type="password" name="currentPassword" placeholder="Current password" />
+      <p class="error currentPassword-error"></p>
+      <label>New password</label>
+      <input type="password" name="newPassword" placeholder="New password" />
+      <p class="error newPassword-error"></p>
+      <p class="error password-general-error"></p>
+      <button type="submit">Change password</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function pToast(msg, ok) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      style: { background: ok ? "#4CAF50" : "indianred" },
+    }).showToast();
+  }
+  function pClear(form) {
+    form.querySelectorAll("p.error").forEach((e) => {
+      e.textContent = "";
+      e.classList.remove("show");
+    });
+  }
+  function pErr(form, field, msg) {
+    const el = form.querySelector("." + field + "-error");
+    if (el) {
+      el.textContent = msg || "";
+      el.classList.toggle("show", !!msg);
+    }
+  }
+
+  const profileForm = document.querySelector("#profile-form");
+  profileForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    pClear(profileForm);
+    try {
+      const res = await fetch("/profile", {
+        method: "POST",
+        body: new FormData(profileForm),
+      });
+      const data = await res.json();
+      if (data.success) {
+        pToast(data.message || "Profile updated.", true);
+        setTimeout(() => location.reload(), 1200);
+      } else {
+        const er = data.errors || {};
+        pErr(profileForm, "name", er.name?.msg);
+        pErr(profileForm, "age", er.age?.msg);
+        pErr(profileForm, "email", er.email?.msg);
+        pErr(profileForm, "mobile", er.mobile?.msg);
+        pErr(profileForm, "avatar", er.avatar?.msg);
+        pErr(profileForm, "general", er.general?.msg);
+      }
+    } catch (err) {
+      console.error("Profile update failed:", err);
+      pErr(profileForm, "general", "Something went wrong.");
+    }
+  });
+
+  const passwordForm = document.querySelector("#password-form");
+  passwordForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    pClear(passwordForm);
+    const body = {
+      currentPassword: passwordForm.currentPassword.value,
+      newPassword: passwordForm.newPassword.value,
+    };
+    try {
+      const res = await fetch("/profile/password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.success) {
+        pToast(data.message || "Password changed.", true);
+        passwordForm.reset();
+      } else {
+        const er = data.errors || {};
+        pErr(passwordForm, "currentPassword", er.currentPassword?.msg);
+        pErr(passwordForm, "newPassword", er.newPassword?.msg);
+        pErr(passwordForm, "password-general", er.general?.msg);
+      }
+    } catch (err) {
+      console.error("Password change failed:", err);
+      pErr(passwordForm, "password-general", "Something went wrong.");
+    }
+  });
+</script>
+  </body>
+</html>

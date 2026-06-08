@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 // and the connection can be reused (e.g. by scripts).
 async function connectDB() {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      autoIndex: process.env.NODE_ENV !== "production",
+    });
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("Error connecting to MongoDB:", err);

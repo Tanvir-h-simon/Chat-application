@@ -15,6 +15,25 @@
     color: #fff;
     font-size: 1.4rem;
   }
+
+  /* Dark theme for the country dropdown so names and codes are readable.
+     The dropdown is appended to the body, so these selectors are not scoped. */
+  .iti__dropdown-content {
+    background: var(--bg-header);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+  }
+  .iti__search-input {
+    background: var(--bg-input);
+    color: var(--text);
+    border: none;
+    border-bottom: 1px solid var(--divider);
+  }
+  .iti__search-input::placeholder { color: var(--text-muted); }
+  .iti__country { color: var(--text); }
+  .iti__country .iti__dial-code { color: var(--text-muted); }
+  .iti__country.iti__highlight,
+  .iti__country:hover { background: var(--bg-input); }
 </style>
 
 <div class="modal-wrapper" id="add-user-modal">

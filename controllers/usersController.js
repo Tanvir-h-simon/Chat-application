@@ -2,6 +2,9 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const fs = require("fs");
 const People = require("../models/People");
+const Conversation = require("../models/Conversation");
+const Message = require("../models/Message");
+const purgeMessages = require("../utilities/purgeMessages");
 
 async function getUsers(req, res, next) {
   try {
@@ -84,6 +87,30 @@ async function deleteUser(req, res, next) {
         console.error("Could not delete avatar file:", err.message);
       });
     }
+
+    // Clean up all chat data tied to this user so nothing is orphaned in the DB.
+    const conversations = await Conversation.find({ participants: userId });
+    for (const convo of conversations) {
+      const remaining = convo.participants.filter(
+        (p) => p.toString() !== userId.toString(),
+      );
+      // A 1:1 chat, or a group that would drop below 2 members, is removed
+      // entirely (along with its messages and attachment files).
+      if (!convo.isGroup || remaining.length < 2) {
+        await purgeMessages(convo._id);
+        await convo.deleteOne();
+        continue;
+      }
+      // Otherwise keep the group: drop this member, reassign the creator if it
+      // was them, so the remaining members are unaffected.
+      convo.participants = remaining;
+      if (convo.creator && convo.creator.toString() === userId.toString()) {
+        convo.creator = remaining[0];
+      }
+      await convo.save();
+    }
+    // Remove any messages this user authored in the groups that survived.
+    await Message.deleteMany({ sender: userId });
 
     res
       .status(200)

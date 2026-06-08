@@ -1,7 +1,7 @@
 {
   "name": "chat-application",
   "version": "1.0.0",
-  "description": "A web app to connet with more people!",
+  "description": "A web app to connect with more people!",
   "homepage": "https://github.com/Tanvir-h-simon/Chat-application#readme",
   "bugs": {
     "url": "https://github.com/Tanvir-h-simon/Chat-application/issues"
@@ -14,10 +14,15 @@
   "author": "Tanvir Hossain",
   "type": "commonjs",
   "main": "app.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon app.js",
+    "start": "node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
     "prod": "cross-env NODE_ENV=production node app.js",
-    "seed:admin": "node scripts/seedAdmin.js"
+    "seed:admin": "node scripts/seedAdmin.js",
+    "indexes:sync": "node scripts/syncIndexes.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -26,12 +31,15 @@
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
+    "helmet": "^8.2.0",
     "http-errors": "^2.0.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.3",
-    "multer": "^2.1.1"
+    "multer": "^2.1.1",
+    "socket.io": "^4.8.3"
   },
   "devDependencies": {
-    "cross-env": "^10.1.0"
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.1.0"
   }
 }

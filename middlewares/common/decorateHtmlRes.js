@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { baseCookieOptions } = require('../../config/cookies');
 
 function decorateHtmlRes(page_title) {
     return function (req, res, next) {
@@ -15,7 +16,7 @@ function decorateHtmlRes(page_title) {
         const flash = req.signedCookies.flash;
         if (flash) {
             res.locals.flash = flash;
-            res.clearCookie('flash');
+            res.clearCookie('flash', baseCookieOptions);
         } else {
             res.locals.flash = null;
         }

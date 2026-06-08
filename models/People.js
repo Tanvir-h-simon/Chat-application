@@ -35,7 +35,17 @@ const peopleSchema = new mongoose.Schema({
             enum: ['user', 'admin'],
             default: 'user'
         },
-    }, 
+
+        // Failed-login lockout state (regular users only). Managed by the
+        // login controller; admins are never locked out.
+        failedLoginAttempts: {
+            type: Number,
+            default: 0
+        },
+        lockUntil: {
+            type: Date
+        },
+    },
     // Add timestamps to the schema
     {
         timestamps: true

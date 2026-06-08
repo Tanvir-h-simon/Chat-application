@@ -15,8 +15,8 @@ const People = require("../models/People");
 async function seedAdmin() {
   await mongoose.connect(process.env.MONGO_URI);
 
-  const email = (process.env.ADMIN_EMAIL || "admin@chat.com").toLowerCase();
-  const password = process.env.ADMIN_PASSWORD || "Admin@123";
+  const email = (process.env.ADMIN_EMAIL).toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
 
   const existing = await People.findOne({ email });
   if (existing) {
@@ -28,10 +28,10 @@ async function seedAdmin() {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   await People.create({
-    name: "Admin",
-    age: 18,
-    email,
-    mobile: process.env.ADMIN_MOBILE || "+8801000000000",
+    name: process.env.ADMIN_NAME,
+    age: process.env.ADMIN_AGE,
+    email: process.env.ADMIN_EMAIL,
+    mobile: process.env.ADMIN_MOBILE,
     password: hashedPassword,
     role: "admin",
   });

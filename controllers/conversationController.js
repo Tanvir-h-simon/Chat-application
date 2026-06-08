@@ -30,7 +30,7 @@ async function searchUsers(req, res, next) {
   }
 }
 
-// POST /conversations  -> 1-to-1 chat (reused if it already exists)
+// POST /conversations -> 1-to-1 chat (reused if it already exists)
 async function createDirectConversation(req, res, next) {
   try {
     const myId = req.user._id;
@@ -71,7 +71,7 @@ async function createDirectConversation(req, res, next) {
   }
 }
 
-// POST /conversations/group  -> group chat
+// POST /conversations/group -> group chat
 async function createGroupConversation(req, res, next) {
   try {
     const myId = req.user._id;
@@ -231,8 +231,7 @@ async function uploadAttachment(req, res, next) {
   });
 }
 
-// ─── helpers ─────────────────────────────────────────────────────────────────
-
+// helpers 
 // Tell a set of users to refresh their inbox (full reload on the client).
 function notifyInboxChanged(req, userIds) {
   const io = req.app.get("io");
@@ -242,9 +241,8 @@ function notifyInboxChanged(req, userIds) {
   );
 }
 
-// ─── management routes ────────────────────────────────────────────────────────
-
-// GET /conversations/:id/details  -> info for the settings panel
+// management routes 
+// GET /conversations/:id/details -> info for the settings panel
 async function getConversationDetails(req, res) {
   try {
     const myId = req.user._id;
@@ -282,7 +280,7 @@ async function getConversationDetails(req, res) {
   }
 }
 
-// PATCH /conversations/:id  -> rename (creator only; req.conversation set by middleware)
+// PATCH /conversations/:id -> rename (creator only; req.conversation set by middleware)
 async function renameGroup(req, res) {
   try {
     const convo = req.conversation;
@@ -307,7 +305,7 @@ async function renameGroup(req, res) {
   }
 }
 
-// POST /conversations/:id/members  { members: [ids] }  -> add (creator only)
+// POST /conversations/:id/members  { members: [ids] } -> add (creator only)
 async function addMembers(req, res) {
   try {
     const convo = req.conversation;
@@ -339,7 +337,7 @@ async function addMembers(req, res) {
   }
 }
 
-// DELETE /conversations/:id/members/:userId  -> remove (creator only)
+// DELETE /conversations/:id/members/:userId -> remove (creator only)
 async function removeMember(req, res) {
   try {
     const convo = req.conversation;
@@ -382,7 +380,7 @@ async function removeMember(req, res) {
   }
 }
 
-// POST /conversations/:id/avatar  -> set group photo (creator only)
+// POST /conversations/:id/avatar -> set group photo (creator only)
 async function setGroupAvatar(req, res) {
   try {
     const convo = req.conversation;
@@ -409,7 +407,7 @@ async function setGroupAvatar(req, res) {
   }
 }
 
-// POST /conversations/:id/leave  -> leave a group (any member)
+// POST /conversations/:id/leave -> leave a group (any member)
 async function leaveGroup(req, res) {
   try {
     const myId = req.user._id;
@@ -452,7 +450,7 @@ async function leaveGroup(req, res) {
   }
 }
 
-// DELETE /conversations/:id  -> delete (group: creator only; 1:1: either party)
+// DELETE /conversations/:id -> delete (group: creator only; 1:1: either party)
 async function deleteConversation(req, res) {
   try {
     const myId = req.user._id;

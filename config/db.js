@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-// Connects to MongoDB. Kept out of app.js so startup logic stays clean
-// and the connection can be reused (e.g. by scripts).
+// Connects to MongoDB.
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI, {

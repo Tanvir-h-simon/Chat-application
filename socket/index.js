@@ -98,7 +98,7 @@ function initSocket(server) {
   io.on("connection", async (socket) => {
     const userId = socket.user._id;
 
-    // --- presence: mark online, tell this socket who's online, tell others ---
+    // presence: mark online, tell this socket who's online, tell others 
     addOnline(onlineUsers, userId, socket.id);
     socket.join("user:" + userId); // personal room so controllers can push to a user directly
     socket.emit("presence:list", Array.from(onlineUsers.keys()));
@@ -315,7 +315,7 @@ function initSocket(server) {
       }
     });
 
-    // --- typing indicators: relay to the rest of the room (not the sender) ---
+    // typing indicators: relay to the rest of the room (not the sender) 
     socket.on("typing", (conversationId) => {
       if (!conversationId) return;
       socket.to(conversationId).emit("typing", {
@@ -330,7 +330,7 @@ function initSocket(server) {
       socket.to(conversationId).emit("stopTyping", { conversationId, userId });
     });
 
-    // --- presence: on last tab closing, tell everyone the user went offline ---
+    // presence: on last tab closing, tell everyone the user went offline
     socket.on("disconnect", () => {
       const wentOffline = removeOnline(onlineUsers, userId, socket.id);
       if (wentOffline) io.emit("presence:offline", { userId });

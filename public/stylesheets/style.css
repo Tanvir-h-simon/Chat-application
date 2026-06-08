@@ -4,7 +4,7 @@
  * Author: Tanvir Hossain
  */
 
-/* ============ Design tokens ============ */
+/* Design tokens  */
 :root {
   --bg-app: #0a1014;
   --bg-sidebar: #111b21;
@@ -33,7 +33,7 @@
   --radius-pill: 999px;
 }
 
-/* ============ Reset & base ============ */
+/*  Reset & base  */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 html {
@@ -53,7 +53,7 @@ a { color: inherit; }
 .hide { display: none !important; }
 .show { display: block !important; }
 
-/* ============ Shared form controls ============ */
+/*  Shared form controls  */
 input, select, textarea {
   font-family: inherit;
   font-size: 15px;
@@ -96,7 +96,7 @@ p.error.show { display: block; }
 }
 .icon-btn:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
 
-/* ============ Brand / logo ============ */
+/*  Brand / logo  */
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand .logo { width: 32px; height: 32px; flex-shrink: 0; }
 .brand .wordmark {
@@ -104,7 +104,7 @@ p.error.show { display: block; }
 }
 .brand .wordmark .dot { color: var(--accent); }
 
-/* ============ Top app bar (users / profile) ============ */
+/*  Top app bar (users / profile)  */
 .topbar {
   height: 60px;
   background: var(--bg-header);
@@ -121,7 +121,7 @@ p.error.show { display: block; }
 .topnav a:hover { background: rgba(255, 255, 255, 0.05); color: var(--text); }
 .topnav a.active { color: var(--accent); background: var(--accent-soft); }
 
-/* ============ Login ============ */
+/*  Login  */
 #login-container {
   min-height: 100vh;
   width: 100%;
@@ -155,7 +155,7 @@ p.error.show { display: block; }
 #login-form input[type="text"], #login-form input[type="password"] { width: 100%; }
 #login-form input[type="submit"] { width: 100%; margin-top: 8px; padding: 13px; }
 
-/* ============ Inbox / chat ============ */
+/*  Inbox / chat  */
 #chat-container {
   position: relative;
   display: grid;
@@ -409,7 +409,7 @@ p.error.show { display: block; }
 .composer-send:hover { background: var(--accent-hover); }
 .composer-send:active { transform: scale(0.94); }
 
-/* ============ Modals ============ */
+/*  Modals  */
 .modal-wrapper {
   position: fixed; inset: 0; z-index: 90;
   background: rgba(0, 0, 0, 0.55);
@@ -536,7 +536,7 @@ p.error.show { display: block; }
 .new-message-container.new-user { position: absolute; right: 30px; top: 22px; left: auto; bottom: auto; }
 .new-message-container.new-user a { width: 40px; height: 40px; font-size: 23px; box-shadow: none; }
 
-/* ============ Profile ============ */
+/*  Profile  */
 .profile-container {
   max-width: 760px; width: 100%;
   margin: 28px auto; padding: 0 24px;
@@ -570,7 +570,7 @@ p.error.show { display: block; }
 .profile-container .error { color: var(--danger); min-height: 16px; font-size: 1.2rem; }
 .profile-container .error.show { display: block; }
 
-/* ============ Toastify ============ */
+/*  Toastify  */
 .toastify {
   color: #fff !important;
   font-size: 14px !important;
@@ -578,20 +578,20 @@ p.error.show { display: block; }
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* ============ Scrollbars ============ */
+/*  Scrollbars  */
 ::-webkit-scrollbar { width: 7px; height: 7px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #2a3942; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #374248; }
 
-/* ============ Mobile back button ============ */
+/*  Mobile back button */
 #mobile-back-btn {
   display: none; background: none; border: none; color: var(--text);
   font-size: 22px; cursor: pointer; margin-right: 4px; flex-shrink: 0;
   width: 36px; height: 40px;
 }
 
-/* ============ Responsive ============ */
+/*  Responsive  */
 @media (max-width: 1000px) {
   #chat-container { grid-template-columns: 320px 1fr; }
   .new-message-container { left: 244px; }

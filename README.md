@@ -55,22 +55,22 @@ front-end framework, which keeps the app small and fast.
 
 ### Login
 
-![Ping login screen]<img width="1919" height="1116" alt="Screenshot 2026-06-09 021919" src="https://github.com/user-attachments/assets/f92688e4-fbb6-45ac-9191-3e5f9a2a8a6f" />
+[Ping login screen]<img width="1919" height="1116" alt="Screenshot 2026-06-09 021919" src="https://github.com/user-attachments/assets/f92688e4-fbb6-45ac-9191-3e5f9a2a8a6f" />
 
 
 ### Chat
 
-![Ping chat view with messages, image attachment, and online presence]<img width="1919" height="1079" alt="Screenshot 2026-06-09 021822" src="https://github.com/user-attachments/assets/6679b266-1542-4b91-ab47-067ebd8abf45" />
+[Ping chat view with messages, image attachment, and online presence]<img width="1919" height="1079" alt="Screenshot 2026-06-09 021822" src="https://github.com/user-attachments/assets/6679b266-1542-4b91-ab47-067ebd8abf45" />
 
 
 ### Admin user management
 
-![Admin manage-users page]<img width="1919" height="1117" alt="Screenshot 2026-06-09 020428" src="https://github.com/user-attachments/assets/38174fc0-ea33-47e9-b202-e55091435cac" />
+[Admin manage-users page]<img width="1919" height="1117" alt="Screenshot 2026-06-09 020428" src="https://github.com/user-attachments/assets/38174fc0-ea33-47e9-b202-e55091435cac" />
 
 
 ### Profile and password settings
 
-![Profile and change-password page]<img width="1919" height="1113" alt="Screenshot 2026-06-09 020439" src="https://github.com/user-attachments/assets/5df69341-0475-4ec2-9aba-19baf6c04e91" />
+[Profile and change-password page]<img width="1919" height="1113" alt="Screenshot 2026-06-09 020439" src="https://github.com/user-attachments/assets/5df69341-0475-4ec2-9aba-19baf6c04e91" />
 
 
 ## Getting started
